@@ -4,6 +4,8 @@ from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test
+from .utils import is_admin, is_librarian, is_member
 
 def list_books(request):
     books = Book.objects.all()
@@ -25,8 +27,23 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.userprofile.role = 'Member'
+            user.userprofile.save()
             login(request, user)  # log the user in after registration
-            return redirect('relationship')  # replace 'home' with the name of your landing page
+            return redirect('relationship:book_list')  # replace 'home' with the name of your landing page
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+
+
+@user_passes_test(is_admin)
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html', {})
+
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html', {})
+
+@user_passes_test(is_member)
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html', {})
