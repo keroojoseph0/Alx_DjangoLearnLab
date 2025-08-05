@@ -7,7 +7,7 @@ from django.views.generic import ListView, DetailView
 def book_list(request):
     books = Book.objects.all()
     context = {'books': books}
-    return render(request, 'relationship_app/book_list.html', context)
+    return render(request, 'relationship_app/list_books.html', context)
 
 class LibraryList(DetailView):
     model = Library
