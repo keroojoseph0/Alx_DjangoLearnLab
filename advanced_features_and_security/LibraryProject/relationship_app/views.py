@@ -1,3 +1,4 @@
+from email.headerregistry import Group
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Book
 from .models import Library
@@ -8,6 +9,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from .utils import is_admin, is_librarian, is_member
 from .forms import BookForm
+
+
 
 def list_books(request):
     books = Book.objects.all()
@@ -31,6 +34,11 @@ def register(request):
             user = form.save()
             user.userprofile.role = 'Member'
             user.userprofile.save()
+
+            # Add user to default group
+            default_group, created = Group.objects.get_or_create(name='Viewers')
+            default_group.user_set.add(user)
+
             login(request, user)  # log the user in after registration
             return redirect('relationship:book_list')  # replace 'home' with the name of your landing page
     else:

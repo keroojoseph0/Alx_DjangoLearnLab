@@ -9,14 +9,23 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+
+    def __str__(self):
+        return self.title
+
 class CustomUserManager(BaseUserManager):
-    def create_usr(self, username, email = None, password = None, **kwargs):
+    def create_user(self, username, email = None, password = None, **kwargs):
         if not username:
             raise ValueError("Username is required")
-        if not kwargs.get('date_of_birth'):
-            raise ValueError('Date of birth is required')
         
-        user = self.model(username = username, email = email, date_of_birth = kwargs.get('date_of_birth'), **kwargs)
+        user = self.model(username = username, email = email, **kwargs)
         user.set_password(password)
         user.save()
         return user
@@ -25,15 +34,13 @@ class CustomUserManager(BaseUserManager):
         kwargs.setdefault('is_staff', True)
         kwargs.setdefault('is_superuser', True)
 
-        if not kwargs.get('date_of_birth'):
-            raise ValueError('Date of birth is required')
         
         return self.create_user(username, email = email, password = password, **kwargs)
     
 
 class CustomUser(AbstractUser):
-    date_of_birth = models.DateField()
-    profile_photo = models.ImageField()
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(null=True, blank=True)
 
     objects = CustomUserManager()
     
