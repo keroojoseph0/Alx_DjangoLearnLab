@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.base_user import BaseUserManager
 
 
 # Create your models here.
@@ -9,14 +9,17 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
-class CustomUserManger(UserManager):
+class CustomUserManger(BaseUserManager):
     def create_usr(self, username, email = None, password = None, **kwargs):
         if not username:
             raise ValueError("Username is required")
         if not kwargs.get('date_of_birth'):
             raise ValueError('Date of birth is required')
         
-        return super().create_user(username, email = email, password = password, **kwargs)
+        user = self.model(username = username, email = email, date_of_birth = kwargs.get('date_of_birth'), **kwargs)
+        user.set_password(password)
+        user.save()
+        return user
 
     def create_superuser(self, username, email = None, password = None, **kwargs):
         kwargs.setdefault('is_staff', True)
@@ -25,7 +28,7 @@ class CustomUserManger(UserManager):
         if not kwargs.get('date_of_birth'):
             raise ValueError('Date of birth is required')
         
-        return super().create_superuser(username, email = email, password = password, **kwargs)
+        return self.create_user(username, email = email, password = password, **kwargs)
     
 
 class CustomUser(AbstractUser):
