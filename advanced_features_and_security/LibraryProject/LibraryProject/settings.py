@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # my apps 
     'bookshelf.apps.BookshelfConfig',
     'relationship_app',
+    'csp',
+
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'csp.middleware.CSPMiddleware',
+
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -129,3 +134,23 @@ LOGIN_REDIRECT_URL = 'relationship:book_list'
 
 # Custom user inherit from Abstract user
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# security
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# Prevents the browser from guessing content types
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enables browser’s XSS protection (older browsers)
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents your site from being rendered inside an iframe
+X_FRAME_OPTIONS = 'DENY'  # or 'SAMEORIGIN' if needed
+SECURE_SSL_REDIRECT = True
+
+
+## content security policy
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "https://trusted.cdn.com")
+CSP_STYLE_SRC = ("'self'", "https://trusted.styles.com")
+CSP_IMG_SRC = ("'self'", "data:", "https://images.com")

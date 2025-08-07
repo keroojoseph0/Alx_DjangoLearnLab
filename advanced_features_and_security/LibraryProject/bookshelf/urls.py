@@ -1,6 +1,5 @@
 from django.urls import path, include
 from . import views
-from bookshelf.views import list_books
 
 app_name = 'bookshelf'
 
