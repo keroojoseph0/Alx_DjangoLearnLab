@@ -61,3 +61,16 @@ CSP_SCRIPT_SRC = ("'self'", "https://trusted.cdn.com")
 CSP_STYLE_SRC = ("'self'", "https://trusted.styles.com")
 CSP_IMG_SRC = ("'self'", "data:", "https://images.com")
 
+
+## HTTPS Configuration
+- `SECURE_SSL_REDIRECT`: Forces HTTPS by redirecting all HTTP requests.
+- `SECURE_HSTS_SECONDS`: Enables HSTS to force browsers to use HTTPS for 1 year.
+- `SECURE_HSTS_INCLUDE_SUBDOMAINS` & `SECURE_HSTS_PRELOAD`: Extend HSTS to subdomains and allow browser preload.
+
+## Secure Cookies
+- `SESSION_COOKIE_SECURE` & `CSRF_COOKIE_SECURE`: Ensure cookies are only sent over secure connections.
+
+## Headers
+- `X_FRAME_OPTIONS = DENY`: Prevents clickjacking.
+- `SECURE_CONTENT_TYPE_NOSNIFF`: Prevents MIME type sniffing.
+- `SECURE_BROWSER_XSS_FILTER`: Enables built-in browser XSS filters.
