@@ -37,7 +37,7 @@ def delete_book(request, id):
         return redirect('bookshelf:list_books')
     return render(request, 'bookshelf/delete_book.html', {'book': book})
 
-def list_books(request):
+def book_list(request):
     books = Book.objects.all()
     context = {'books': books}
     return render(request, 'bookshelf/list_books.html', context)
