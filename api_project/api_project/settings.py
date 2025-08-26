@@ -40,7 +40,25 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'api',
+    'rest_framework.authtoken',
 ]
+
+REST_FRAMEWORK = {
+    # Authentication:
+    # -------------------------
+    # We are using TokenAuthentication as the default authentication class.
+    # - Each user will be assigned a unique token stored in the database.
+    # - Clients must include this token in the HTTP headers for each request:
+    #     Authorization: Token <user_token>
+    #
+    # Note:
+    # - 'rest_framework.authtoken' must be added to INSTALLED_APPS.
+    # - Run 'python manage.py migrate' to create the token table.
+    # - Tokens can be created via admin, shell, or a login API endpoint.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
