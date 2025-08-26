@@ -28,5 +28,5 @@ class BookViewSet(viewsets.ModelViewSet):
     # - IsAuthenticated      → Only logged-in users with a token can access.
     # - AllowAny             → Public, no restrictions.
     # - IsAdminUser          → Only staff users (is_staff=True) can access.
-    
-    permission_classes = [permissions.IsAdminUser]  # Ensure that only admin users can access this view
+
+    permission_classes = [permissions.IsAuthenticated]  # Ensure that only authenticated users can access this view
