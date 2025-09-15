@@ -10,14 +10,14 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=50)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, related_name= "books", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 class Library(models.Model):
     name = models.CharField(max_length=50)
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book, related_name='librarys')
 
     def __str__(self):
         return self.name
