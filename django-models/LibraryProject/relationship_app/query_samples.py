@@ -1,15 +1,7 @@
-from .models import Book, Author, Librarian, Library
+from .models import Book, Librarian, Library, Author
 
-def get_books_by_author(author_name):
-    author = Author.objects.get(name=author_name)
-    books = Book.objects.filter(author=author)
-    return books
-
-def get_books_in_library(library_name):
-    library = Library.objects.get(name=library_name)
-    return library.books.all()
-
-def get_librarian_for_library(library_name):
-    library = Library.objects.get(name=library_name)
-    librarian = Librarian.objects.get(library=library)
-    return librarian
+book_by_auher = Book.objects.filter(auhor__name = 'keroo')
+book_all = Book.objects.all()
+book_in_library = Library.objects.filter(books = book_all)
+library_all = Library.objects.all()
+librarian_in_library = Librarian.objects.filter(library = library_all)
