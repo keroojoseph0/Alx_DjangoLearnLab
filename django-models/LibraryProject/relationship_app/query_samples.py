@@ -1,4 +1,4 @@
-from relationship_app.models import Author, Library, Book
+from relationship_app.models import Author, Library, Book, Librarian
 
 
 def query_books_by_author(author_name):
@@ -14,4 +14,5 @@ def list_books_in_library(library_name):
 
 def get_librarian_for_library(library_name):
     library = Library.objects.get(name=library_name)
-    return library.librarian  # thanks to related_name="librarian"
+    librarian = Librarian.objects.get(library=library)  # ✅ explicit get
+    return librarian
