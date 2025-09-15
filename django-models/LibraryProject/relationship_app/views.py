@@ -6,6 +6,9 @@ from django.views.generic.detail import DetailView
 from .forms import SignupForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+
 
 
 # Create your views here.
