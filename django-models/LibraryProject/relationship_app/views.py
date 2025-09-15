@@ -31,7 +31,7 @@ class LibraryDetailView(DetailView):
     queryset = Library.objects.all()
     template_name = 'relationship_app/library_detail.html'
 
-def signupview(request):
+def regiser(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
