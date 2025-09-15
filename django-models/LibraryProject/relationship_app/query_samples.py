@@ -1,9 +1,9 @@
-from relationship_app.models import Author, Library
+from relationship_app.models import Author, Library, Book
 
 
 def query_books_by_author(author_name):
     author = Author.objects.get(name=author_name)
-    books = author.books.all()  # uses related_name="books"
+    books = Book.objects.filter(author=author)
     return books
 
 
