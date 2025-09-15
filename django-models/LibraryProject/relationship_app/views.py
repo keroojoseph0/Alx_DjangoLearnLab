@@ -8,17 +8,17 @@ from django.views.generic import ListView, DetailView
 def list_books(request):
     books = Book.objects.all()
     context = {'books': books}
-    return render(request, 'list_books.html', context)
+    return render(request, 'relationship_app/list_books.html', context)
 
 
 class BookList(ListView):
     model = Library
     queryset = Library.books.all()
-    template_name = 'list_books.html'
+    template_name = 'relationship_app/list_books.html'
     context_object_name = 'books'
 
 class LibraryDetailView(DetailView):
     model = Library
     context_object_name = 'library'
     queryset = Library.objects.all()
-    template_name = 'library_detail.html'
+    template_name = 'relationship_app/library_detail.html'
