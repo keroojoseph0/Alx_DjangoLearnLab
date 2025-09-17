@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import permission_required
 from django.template.context_processors import request
 from .models import Book
 from .forms import BookForm
+from .forms import ExampleForm
 
 # Create your views here.
 
