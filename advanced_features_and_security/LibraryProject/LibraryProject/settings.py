@@ -50,7 +50,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+#    'csp.middleware.CSPMiddleware',
 ]
+
+CSP_DEFAULT_SRC = ("'self'",)  # only allow content from your own domain
+CSP_SCRIPT_SRC = ("'self'", "https://trusted-cdn.com")  # allow scripts from yourself + CDN
+CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
@@ -70,6 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
+
 
 
 # Database
@@ -129,3 +136,23 @@ LOGIN_REDIRECT_URL = 'relationship:book_list'
 
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+
+# CSRF cookies only over HTTPS
+CSRF_COOKIE_SECURE = True  
+
+# Session cookies only over HTTPS
+SESSION_COOKIE_SECURE = True  
+
+# Optional: make cookies inaccessible to JavaScript
+CSRF_COOKIE_HTTPONLY = True  
+SESSION_COOKIE_HTTPONLY = True
+
+# Prevents browsers from guessing content types (mitigates XSS)
+SECURE_CONTENT_TYPE_NOSNIFF = True  
+
+# Enables the XSS filter in browsers like Chrome
+SECURE_BROWSER_XSS_FILTER = True  
+
+# Protects against clickjacking
+X_FRAME_OPTIONS = "DENY"

@@ -31,3 +31,11 @@ from django.contrib.auth.models import Group, User
 user = User.objects.get(username="john")
 group = Group.objects.get(name="Editors")
 user.groups.add(group)
+
+### Security Measures
+- Debug mode disabled in production.
+- CSP enabled via django-csp middleware.
+- Secure cookie settings (`CSRF_COOKIE_SECURE`, `SESSION_COOKIE_SECURE`).
+- HTTPS enforced (`SECURE_SSL_REDIRECT`, HSTS).
+- ORM used instead of raw SQL to prevent injection.
+- All user input validated with Django forms.
