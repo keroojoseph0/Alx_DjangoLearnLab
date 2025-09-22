@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-un^k@4brh4%ikjzh7=aj6s&_f!7fm*vrqk@mr^etdl6ytl#q+y'
+SECRET_KEY = 'django-insecure-a$8&f#qei2n5rbb=%0_*!4i433fe19g93&j$=usrvz1ofqofo8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,31 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'api',
-    'rest_framework.authtoken',
 ]
-
-REST_FRAMEWORK = {
-    # Authentication:
-    # -------------------------
-    # We are using TokenAuthentication as the default authentication class.
-    # - Each user will be assigned a unique token stored in the database.
-    # - Clients must include this token in the HTTP headers for each request:
-    #     Authorization: Token <user_token>
-    #
-    # Note:
-    # - 'rest_framework.authtoken' must be added to INSTALLED_APPS.
-    # - Run 'python manage.py migrate' to create the token table.
-    # - Tokens can be created via admin, shell, or a login API endpoint.
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Default permission: only is authenticated users can access the API
-    ],
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
