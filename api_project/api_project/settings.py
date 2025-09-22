@@ -39,7 +39,27 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'rest_framework.authtoken',
 ]
+
+# DRF Authentication and Permissions Configuration
+# ------------------------------------------------
+# We are using TokenAuthentication to secure API endpoints.
+# Every request must include a valid token in the `Authorization` header:
+# Example: Authorization: Token <your_token>
+#
+# DEFAULT_AUTHENTICATION_CLASSES defines which authentication methods DRF will use.
+# DEFAULT_PERMISSION_CLASSES ensures that, by default, only authenticated users can access the API.
+
+
+REST_FRAMEWORk = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
