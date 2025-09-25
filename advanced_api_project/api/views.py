@@ -12,6 +12,8 @@ from .serializers import BookSerializer
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import filters, permissions
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework
+from rest_framework import generics
 
 # Create your views here.
 
