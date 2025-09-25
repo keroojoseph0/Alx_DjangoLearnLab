@@ -8,7 +8,7 @@ Includes advanced filtering, search, ordering, and custom business logic.
 from django.shortcuts import render
 from .models import Book
 from .serializers import BookSerializer
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import filters, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 
