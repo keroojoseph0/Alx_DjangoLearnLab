@@ -2,6 +2,7 @@
 Book API Views Configuration
 This module provides CRUD operations for Book model using Django REST Framework's generic views.
 Includes advanced filtering, search, ordering, and custom business logic.
+["ListView", "DetailView", "CreateView", "UpdateView", "DeleteView"]
 """
 
 
