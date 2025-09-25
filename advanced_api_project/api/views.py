@@ -8,13 +8,13 @@ Includes advanced filtering, search, ordering, and custom business logic.
 from django.shortcuts import render
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, RetrieveAPIView, DestroyAPIView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from rest_framework import filters, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
-class ListView(ListAPIView):
+class BookListView(ListView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -23,12 +23,12 @@ class ListView(ListAPIView):
     search_fields = ['title', 'author']
     ordering_fields = ['title', 'author', 'publication_year']
 
-class DetailView(RetrieveAPIView):
+class BookDetailView(DetailView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class CreateView(CreateAPIView):
+class BookCreateView(CreateView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -36,14 +36,14 @@ class CreateView(CreateAPIView):
     def  perform_create(self, serializer):
         serializer.save(onwer = self.request.user)
 
-class UpdateView(UpdateAPIView):
+class BookUpdateView(UpdateView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
         serializer.save()
-class DeleteView(DestroyAPIView):
+class BookDeleteView(DeleteView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
