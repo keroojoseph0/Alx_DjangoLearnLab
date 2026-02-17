@@ -5,23 +5,24 @@ from django.contrib.auth import authenticate
 
 User = get_user_model()
 
-class SignupSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+
+class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        fields = ["username", "email", "password"]
+        extra_kwargs = {
+            "password": {"write_only": True}
+        }
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            email=validated_data['email'],
-            password=validated_data['password']
-        )
-        return user
+        # create user correctly (hash password)
+        user = User.objects.create_user(**validated_data)
 
+        # create token automatically
+        Token.objects.create(user=user)
+        return user
+    
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)

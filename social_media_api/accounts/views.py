@@ -1,5 +1,5 @@
 from .models import CustomUser
-from .serializers import ProfileSerializer, SignupSerializer, LoginSerializer
+from .serializers import ProfileSerializer, RegisterSerializer, LoginSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 # Create your views here.
 
 class SignupView(generics.CreateAPIView):
-    serializer_class = SignupSerializer
+    serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
 
 
