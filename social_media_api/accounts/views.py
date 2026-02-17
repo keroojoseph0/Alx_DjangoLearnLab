@@ -21,11 +21,7 @@ class LoginView(generics.GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        username = serializer.validated_data["username"]
-        password = serializer.validated_data["password"]
-
-        user = authenticate(username=username, password=password)
+        user = serializer.validated_data['user']
 
         if user:
             token, _ = Token.objects.get_or_create(user=user)
