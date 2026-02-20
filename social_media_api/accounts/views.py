@@ -34,7 +34,7 @@ class LoginView(generics.GenericAPIView):
         return Response({"error": "Invalid credentials"}, status=400)
 
 
-        
+
     
     
 CustomUser.objects.all()
@@ -50,7 +50,7 @@ class ProfileView(generics.RetrieveAPIView):
 
 
     @action(detail=True, methods=['post'])
-    def follow(self, request, pk=None):
+    def follow(self, request, user_id=None):
         follow_user = self.get_object()
         if follow_user == request.user:
             return Response({"error": "You cannot follow yourself"}, status=400)
@@ -59,7 +59,7 @@ class ProfileView(generics.RetrieveAPIView):
         return Response({"status": f"You are now following {follow_user.username}"})
     
     @action(detail=True, methods=['post'])
-    def unfollow(self, request, pk=None):
+    def unfollow(self, request, user_id=None):
         user_to_unfollow = self.get_object()
         if user_to_unfollow == request.user:
             return Response({"error": "You cannot unfollow yourself"}, status=400)
