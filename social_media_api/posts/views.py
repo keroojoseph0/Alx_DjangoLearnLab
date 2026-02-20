@@ -1,11 +1,12 @@
 from calendar import c
 from django.shortcuts import render
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsAuthorOrReadOnly
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import PageNumberPagination
+
 
 # Create your views here.
 
@@ -43,3 +44,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthorOrReadOnly]
+    filter_backends = [SearchFilter]
+    search_fields = ['content']
+    pagination_class = PostPagination
+
+    def get_queryset(self):
+        user = self.request.user
+        following_users = user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
