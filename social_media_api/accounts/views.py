@@ -2,12 +2,14 @@ from math import perm
 from django.shortcuts import get_object_or_404
 from .models import CustomUser
 from .serializers import ProfileSerializer, RegisterSerializer, LoginSerializer
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+
+
 
 # Create your views here.
 
@@ -30,11 +32,18 @@ class LoginView(generics.GenericAPIView):
             return Response({"token": token.key})
 
         return Response({"error": "Invalid credentials"}, status=400)
+
+
+        
     
+    
+CustomUser.objects.all()
+
 
 
 class ProfileView(generics.RetrieveAPIView):
     serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return self.request.user
