@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     'accounts',
     'posts',
+    'notifications',
 
     'rest_framework',
     'drf_yasg',
